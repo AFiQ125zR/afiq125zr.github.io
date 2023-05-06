@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <title>AngularJS Example - Calculations</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    
+    <style>
+    
+    table, td, th {
+         border: 1px solid;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    input {
+        width: 10px;
+    }
+    
+    </style>
+    
+</head>
+<body ng-controller="myCtrl">
+    <h1>{{ title }}</h1>
+    <form>
+
+<table>
+        <tr>
+            <td><label for="titleInput">Title</label></td>
+            <td>:</td>
+            <td colspan="2"><input type="text" id="titleInput" ng-model="title" placeholder="Enter title"></td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>QR</td>
+            <td>Cash</td>
+        </tr>
+        <tr>
+            <td><label for="qrSalesInput">Sales</label></td>
+            <td>:</td>
+            <td><input type="number" id="qrSalesInput" ng-model="qrSales" ng-change="calculateResults()" placeholder="Enter QR sales"></td>
+            <td><input type="number" id="cashSalesInput" ng-model="cashSales" 
+ng-change="calculateResults()" placeholder="Enter cash sales"></td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        
+        <tr>
+            <td><label for="cashNetProfitInput">Nett Profit</label></td>
+            <td>:</td>
+            <td><input type="number" id="qrNetProfitInput" ng-model="qrNetProfit" 
+ng-change="calculateQrRolling()" placeholder="Enter Cash Nett Profit"></td>
+            <td><input type="number" id="cashNetProfitInput" ng-model="cashNetProfit" 
+ng-change="calculateCashRolling()" placeholder="Enter Cash Nett Profit"></td>
+        </tr>
+        <tr>
+            <td><label for="cashRollingInput">Rolling</label></td>
+            <td>:</td>
+            <td><input type="number" id="qrRollingInput" ng-model="qrRolling" 
+ng-change="calculateQrNettProfit()" placeholder="Enter QR Rolling"></td>
+            <td><input type="number" id="cashRollingInput" ng-model="cashRolling" 
+ng-change="calculateCashNettProfit()" placeholder="Enter Cash Rolling"></td>
+        </tr>
+        
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        
+        <tr>
+            <td><label for="billingInput">Billing</label></td>
+            <td>:</td>
+            <td><input type="number" id="qrBillingInput" ng-model="qrBilling" 
+ng-change="calculateQrBillingBal()" placeholder="Enter QR Billing"></td>
+            <td><input type="number" id="cashBillingInput" ng-model="cashBilling" 
+ng-change="calculateCashBillingBal()" placeholder="Enter Cash Billing"></td>
+        </tr>
+        
+        <tr>
+            <td><label for="kopiInput">Kopi</label></td>
+            <td>:</td>
+            <td><input type="number" id="qrKopiInput" ng-model="qrKopi" 
+ng-change="calculateQrKopiBal()" placeholder="Enter QR Kopi"></td>
+            <td><input type="number" id="cashKopiInput" ng-model="cashKopi" 
+ng-change="calculateCashKopiBal()" placeholder="Enter Cash Kopi"></td>
+        </tr>
+        
+    </table>
+
+
+      
+        
+        
+
+        
+    </form>
+  
+    <h2>Results</h2>
+
+<table>
+        
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>QR</td>
+            <td>Sales</td>
+        </tr>      
+        
+        <tr>
+            <td>Net Profit</td>
+            <td>:</td>
+            <td>{{ qrNetProfit }}</td>
+            <td>{{ cashNetProfit }}</td>
+        </tr>
+        
+        <tr>
+            <td>Rolling</td>
+            <td>:</td>
+            <td>{{ qrRolling }}</td>
+            <td>{{ cashRolling }}</td>
+        </tr>
+        
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td>Total Sales</td>
+            <td>:</td>
+            <td colspan="2">{{ totalSales }}</td>
+        </tr>
+        
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        
+        <tr>
+            <td>Billing</td>
+            <td>:</td>
+            <td>{{ qrBilling }}</td>
+            <td>{{ cashBilling }}</td>
+        </tr>
+        
+        <tr>
+            <td>Nett Profit Balance</td>
+            <td>:</td>
+            <td>{{ qrNetProfitBal }}</td>
+            <td>{{ cashNetProfitBal }}</td>
+        </tr>
+            
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        
+        <tr>
+            <td>Kopi</td>
+            <td>:</td>
+            <td>{{ qrKopi }}</td>
+            <td>{{ cashKopi }}</td>
+        </tr>
+        
+        <tr>
+            <td>Rolling Balance</td>
+            <td>:</td>
+            <td>{{ qrRollingBal }}</td>
+            <td>{{ cashRollingBal }}</td>
+        </tr>
+  
+    </table>
+
+  
+  
+
+    <script>
+        // Define the AngularJS module
+        var app = angular.module('myApp', []);
+
+        // Define the AngularJS controller
+        app.controller('myCtrl', function($scope) {
+            
+            $scope.title = '';
+            
+            $scope.qrSales = 0.00;
+            $scope.qrNetProfit = 0.00;
+            $scope.qrNetProfitBal = 0.00;
+            $scope.qrRolling = 0.00;
+            $scope.qrRollingBal = 0.00;
+            
+            $scope.qrBilling = 0.00;
+            $scope.qrKopi = 0.00;
+
+            $scope.cashSales = 0.00;
+            $scope.cashNetProfit = 0.00;
+            $scope.cashNetProfitBal = 0.00;
+            $scope.cashRolling = 0.00;
+            $scope.cashRollingBal = 0.00;
+                            
+            $scope.cashBilling = 0.00;
+            $scope.cashKopi = 0.00;
+            
+            $scope.totalSales = 0.00;
+            
+            // Total Sales
+          
+            $scope.calculateResults = function() {
+                
+                $scope.totalSales = $scope.qrSales + $scope.cashSales;
+                
+                $scope.qrNetProfit = $scope.qrSales * 0.5;
+                $scope.qrRolling = $scope.qrSales * 0.5;
+                
+                $scope.cashNetProfit = $scope.cashSales * 0.5;
+                $scope.cashRolling = $scope.cashSales * 0.5;
+            };
+            
+            // Rolling
+            
+            $scope.calculateQrRolling = function() {
+                
+                $scope.qrRolling = $scope.qrSales - $scope.qrNetProfit;
+                
+            };
+            
+            $scope.calculateCashRolling = function() {
+                
+                $scope.cashRolling = $scope.cashSales - $scope.cashNetProfit;
+                
+            };
+            
+            // Nett Profit  
+           
+            $scope.calculateQrNettProfit = function() {
+                
+                $scope.qrNetProfit = $scope.qrSales - $scope.qrRolling;
+                
+            };
+            
+           $scope.calculateCashNettProfit = function() {
+                
+                $scope.cashNetProfit = $scope.cashSales - $scope.cashRolling;
+                
+            };
+            
+            // Billing Balance
+           
+            $scope.calculateQrBillingBal = function() {
+                
+                $scope.qrNetProfitBal = $scope.qrNetProfit - $scope.qrBilling;
+                
+            };
+            
+           $scope.calculateCashBillingBal = function() {
+                
+                $scope.cashNetProfitBal = $scope.cashNetProfit - $scope.cashBilling;
+                
+            };
+            
+            // Kopi  
+           
+            $scope.calculateQrKopiBal = function() {
+                
+                $scope.qrRollingBal = $scope.qrRolling - $scope.qrKopi;
+                
+            };
+            
+           $scope.calculateCashKopiBal = function() {
+                
+                $scope.cashRollingBal = $scope.cashRolling - $scope.cashKopi;
+                
+            };
+            
+        });
+    </script>
+</body>
+</html>
