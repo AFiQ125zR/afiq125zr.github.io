@@ -2,10 +2,13 @@
 <html ng-app="myApp">
 <head>
     <title>AngularJS Example - Calculations</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
     
     <style>
     
+    input[type="text"] {
+      resize: both;
+    }
+  
     table, td, th {
          border: 1px solid;
     }
@@ -20,10 +23,27 @@
     }
     
     .my-size {
-        width: 50px;
+        width: 80px;
     }
     
+    .my-text-center {
+        text-align: center;
+    }
+    
+    .my-text-right {
+        text-align: right;
+    }
+    
+    .my-bold-text {
+      font-weight: bold;
+    }
+
+    
     </style>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    
+    
     
 </head>
 <body ng-controller="myCtrl">
@@ -38,8 +58,8 @@
         </tr>
         <tr>
             <td colspan="2">&nbsp;</td>
-            <td>QR</td>
-            <td>Cash</td>
+            <td class="my-text-center my-bold-text">QR</td>
+            <td class="my-text-center my-bold-text">Cash</td>
         </tr>
         <tr>
             <td><label for="qrSalesInput">Sales</label></td>
@@ -112,31 +132,40 @@ ng-change="calculateCashKopiBal()" placeholder="Enter Cash Kopi"></td>
         
         <tr>
             <td colspan="2" class="my-size">&nbsp;</td>
-            <td>QR</td>
+            <td class="my-text-center my-size my-bold-text">QR</td>
+            <td class="my-text-center my-size my-bold-text">Cash</td>
+        </tr>   
+        
+        <tr>
             <td>Sales</td>
-        </tr>      
+            <td>:</td>
+            <td class="my-text-right">{{ qrSales }}</td>
+            <td class="my-text-right">{{ cashSales }}</td>
+        </tr>
+        
+        <tr>
+            <td colspan="4">&nbsp;</td>
+        </tr>   
         
         <tr>
             <td>Net Profit</td>
             <td>:</td>
-            <td>{{ qrNetProfit }}</td>
-            <td>{{ cashNetProfit }}</td>
+            <td class="my-text-right">{{ qrNetProfit }}</td>
+            <td class="my-text-right">{{ cashNetProfit }}</td>
         </tr>
-        
-        
-        
+              
         <tr>
             <td>Billing</td>
             <td>:</td>
-            <td>{{ qrBilling }}</td>
-            <td>{{ cashBilling }}</td>
+            <td class="my-text-right">{{ qrBilling }}</td>
+            <td class="my-text-right">{{ cashBilling }}</td>
         </tr>
         
         <tr>
             <td>Nett Profit Balance</td>
             <td>:</td>
-            <td>{{ qrNetProfitBal }}</td>
-            <td>{{ cashNetProfitBal }}</td>
+            <td class="my-text-right">{{ qrNetProfitBal }}</td>
+            <td class="my-text-right">{{ cashNetProfitBal }}</td>
         </tr>
         
         <tr>
@@ -146,22 +175,22 @@ ng-change="calculateCashKopiBal()" placeholder="Enter Cash Kopi"></td>
         <tr>
             <td>Rolling</td>
             <td>:</td>
-            <td>{{ qrRolling }}</td>
-            <td>{{ cashRolling }}</td>
+            <td class="my-text-right">{{ qrRolling }}</td>
+            <td class="my-text-right">{{ cashRolling }}</td>
         </tr>
         
         <tr>
             <td>Kopi</td>
             <td>:</td>
-            <td>{{ qrKopi }}</td>
-            <td>{{ cashKopi }}</td>
+            <td class="my-text-right">{{ qrKopi }}</td>
+            <td class="my-text-right">{{ cashKopi }}</td>
         </tr>
         
         <tr>
             <td>Rolling Balance</td>
             <td>:</td>
-            <td>{{ qrRollingBal }}</td>
-            <td>{{ cashRollingBal }}</td>
+            <td class="my-text-right">{{ qrRollingBal }}</td>
+            <td class="my-text-right">{{ cashRollingBal }}</td>
         </tr>
         
         <tr>
@@ -171,7 +200,7 @@ ng-change="calculateCashKopiBal()" placeholder="Enter Cash Kopi"></td>
         <tr>
             <td>Total Sales</td>
             <td>:</td>
-            <td colspan="2">{{ totalSales }}</td>
+            <td colspan="2" class="my-text-center">{{ totalSales }}</td>
         </tr>
         
         
