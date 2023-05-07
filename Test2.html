@@ -19,22 +19,25 @@
         width: 10px;
     }
     
+    .my-size {
+        width: 50px;
+    }
+    
     </style>
     
 </head>
 <body ng-controller="myCtrl">
-    <h1>{{ title }}</h1>
+    <h1>Daily Sales Tracking</h1>
     <form>
 
 <table>
         <tr>
-            <td><label for="titleInput">Title</label></td>
+            <td class="my-size"><label for="titleInput">Title</label></td>
             <td>:</td>
             <td colspan="2"><input type="text" id="titleInput" ng-model="title" placeholder="Enter title"></td>
         </tr>
         <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td colspan="2">&nbsp;</td>
             <td>QR</td>
             <td>Cash</td>
         </tr>
@@ -46,10 +49,7 @@
 ng-change="calculateResults()" placeholder="Enter cash sales"></td>
         </tr>
         <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td colspan="4">&nbsp;</td>
         </tr>
         
         <tr>
@@ -60,21 +60,6 @@ ng-change="calculateQrRolling()" placeholder="Enter Cash Nett Profit"></td>
             <td><input type="number" id="cashNetProfitInput" ng-model="cashNetProfit" 
 ng-change="calculateCashRolling()" placeholder="Enter Cash Nett Profit"></td>
         </tr>
-        <tr>
-            <td><label for="cashRollingInput">Rolling</label></td>
-            <td>:</td>
-            <td><input type="number" id="qrRollingInput" ng-model="qrRolling" 
-ng-change="calculateQrNettProfit()" placeholder="Enter QR Rolling"></td>
-            <td><input type="number" id="cashRollingInput" ng-model="cashRolling" 
-ng-change="calculateCashNettProfit()" placeholder="Enter Cash Rolling"></td>
-        </tr>
-        
-        <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
         
         <tr>
             <td><label for="billingInput">Billing</label></td>
@@ -84,6 +69,23 @@ ng-change="calculateQrBillingBal()" placeholder="Enter QR Billing"></td>
             <td><input type="number" id="cashBillingInput" ng-model="cashBilling" 
 ng-change="calculateCashBillingBal()" placeholder="Enter Cash Billing"></td>
         </tr>
+        
+        <tr>
+            <td colspan="4">&nbsp;</td>
+        </tr>
+        
+        <tr>
+            <td><label for="cashRollingInput">Rolling</label></td>
+            <td>:</td>
+            <td><input type="number" id="qrRollingInput" ng-model="qrRolling" 
+ng-change="calculateQrNettProfit()" placeholder="Enter QR Rolling"></td>
+            <td><input type="number" id="cashRollingInput" ng-model="cashRolling" 
+ng-change="calculateCashNettProfit()" placeholder="Enter Cash Rolling"></td>
+        </tr>
+        
+        
+        
+        
         
         <tr>
             <td><label for="kopiInput">Kopi</label></td>
@@ -104,13 +106,12 @@ ng-change="calculateCashKopiBal()" placeholder="Enter Cash Kopi"></td>
         
     </form>
   
-    <h2>Results</h2>
+    <h2>Sales Results For {{ title }}</h2>
 
 <table>
         
         <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td colspan="2" class="my-size">&nbsp;</td>
             <td>QR</td>
             <td>Sales</td>
         </tr>      
@@ -122,32 +123,7 @@ ng-change="calculateCashKopiBal()" placeholder="Enter Cash Kopi"></td>
             <td>{{ cashNetProfit }}</td>
         </tr>
         
-        <tr>
-            <td>Rolling</td>
-            <td>:</td>
-            <td>{{ qrRolling }}</td>
-            <td>{{ cashRolling }}</td>
-        </tr>
         
-        <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-
-        <tr>
-            <td>Total Sales</td>
-            <td>:</td>
-            <td colspan="2">{{ totalSales }}</td>
-        </tr>
-        
-        <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
         
         <tr>
             <td>Billing</td>
@@ -162,12 +138,16 @@ ng-change="calculateCashKopiBal()" placeholder="Enter Cash Kopi"></td>
             <td>{{ qrNetProfitBal }}</td>
             <td>{{ cashNetProfitBal }}</td>
         </tr>
-            
+        
         <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td colspan="4">&nbsp;</td>
+        </tr>
+        
+        <tr>
+            <td>Rolling</td>
+            <td>:</td>
+            <td>{{ qrRolling }}</td>
+            <td>{{ cashRolling }}</td>
         </tr>
         
         <tr>
@@ -183,6 +163,20 @@ ng-change="calculateCashKopiBal()" placeholder="Enter Cash Kopi"></td>
             <td>{{ qrRollingBal }}</td>
             <td>{{ cashRollingBal }}</td>
         </tr>
+        
+        <tr>
+            <td colspan="4">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td>Total Sales</td>
+            <td>:</td>
+            <td colspan="2">{{ totalSales }}</td>
+        </tr>
+        
+        
+            
+        
   
     </table>
 
